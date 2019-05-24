@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/nav_home" app:startDestination="@id/homeFragment">
+
+    <fragment android:id="@+id/homeFragment"
+              android:name="br.com.amedigital.lodjinha.feature.home.view.HomeFragment"
+              android:label="HomeFragment">
+        <action
+                android:id="@+id/action_home_to_category"
+                app:destination="@id/categoryFragment"
+                app:launchSingleTop="true"
+                app:popUpToInclusive="false"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out"
+                app:popExitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in"/>
+
+        <action android:id="@+id/action_home_to_category_compat"
+                app:destination="@id/categoryFragment"
+                app:launchSingleTop="true"
+                app:popUpToInclusive="false"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_fade"
+                app:popExitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in"/>
+    </fragment>
+    <fragment android:id="@+id/categoryFragment"
+              android:name="br.com.amedigital.lodjinha.feature.category.view.CategoryFragment"
+              android:label="CategoryFragment"/>
+</navigation>

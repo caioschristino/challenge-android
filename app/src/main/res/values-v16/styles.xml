@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="HeaderTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/pacifico_font_family</item>
+        <item name="android:textColor">@color/white_two</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+    </style>
+
+    <style name="MenuTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/menu_text_size</item>
+    </style>
+</resources>

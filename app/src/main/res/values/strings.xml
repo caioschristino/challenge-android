@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">a Lodjinha</string>
+    <string name="home">Home</string>
+    <string name="about_app">Sobre o aplicativo</string>
+    <string name="drawer_opened">Gaveta aberta</string>
+    <string name="drawer_closed">Gaveta fechada</string>
+    <string name="categories">Categorias</string>
+    <string name="sale_ranking">Mais vendidos</string>
+    <string name="price_from">De %s</string>
+    <string name="price_to">Por %s</string>
+</resources>

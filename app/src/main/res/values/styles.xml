@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/warm_purple</item>
+        <item name="colorPrimaryDark">@color/warm_purple_dark</item>
+        <item name="colorAccent">@color/warm_purple_light</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="HeaderTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/pacifico_font_family</item>
+        <item name="android:textColor">@color/white_two</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+    </style>
+
+    <style name="CategoryTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="MenuTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/menu_text_size</item>
+    </style>
+
+    <style name="DescriptionAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+    </style>
+
+    <style name="SubHeaderAppearance" parent="DescriptionAppearance">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:layout_marginLeft">@dimen/default_padding</item>
+    </style>
+
+    <style name="PriceHighlight" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/tomato</item>
+    </style>
+
+    <style name="PriceOld" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/greyish</item>
+    </style>
+
+    <style name="GlideSliderCardStyle" parent="Base.CardView">
+        <item name="android:shape">rectangle</item>
+        <item name="cardCornerRadius">0dp</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="contentPadding">-8dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+</resources>

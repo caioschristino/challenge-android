@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="warm_purple">#5e2a84</color>
+    <color name="warm_purple_dark">#2f0056</color>
+    <color name="warm_purple_light">#8e56b4</color>
+    <color name="tomato">#f15025</color>
+    <color name="greyish">#aaaaaa</color>
+    <color name="greyish_brown">#4a4a4a</color>
+    <color name="white">#d5d5d5</color>
+    <color name="white_two">#fcfcfc</color>
+    <color name="dark">#2d3142</color>
+
+    <color name="glide_slider_background_color">@color/white_two</color>
+    <color name="glide_slider_indicator_color">@color/warm_purple_light</color>
+    <color name="glide_slider_description_color">@color/warm_purple_light</color>
+</resources>

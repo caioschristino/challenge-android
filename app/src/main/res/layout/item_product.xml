@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/default_padding"
+        android:paddingBottom="@dimen/default_padding"
+        android:background="@drawable/session_divider">
+
+    <ImageView
+            android:id="@+id/prodImg"
+            android:layout_width="@dimen/img_icon_width"
+            android:layout_height="@dimen/img_icon_height"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_menu"
+            android:contentDescription="@null"
+            android:layout_margin="@dimen/default_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.0"
+    />
+
+    <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="@dimen/arrow_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitEnd"
+            android:src="@drawable/disclosure_indicator"
+            android:layout_margin="@dimen/default_margin"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"/>
+
+    <TextView
+            android:id="@+id/prodDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginRight="@dimen/higher_margin"
+            android:layout_marginEnd="@dimen/higher_margin"
+            app:layout_constraintStart_toEndOf="@+id/prodImg"
+            app:layout_constraintEnd_toStartOf="@+id/arrow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/prodImg"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    />
+
+    <br.com.amedigital.lodjinha.base.view.custom.StrikeThruTextView
+            android:id="@+id/prodPriceFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:textAppearance="@style/PriceOld"
+            style="@style/PriceOld"
+            app:layout_constraintStart_toEndOf="@id/prodImg"
+            app:layout_constraintTop_toBottomOf="@+id/prodDescription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/prodPriceTo"
+            app:layout_constraintVertical_bias="0.0"/>
+
+
+    <TextView
+            android:id="@+id/prodPriceTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:textAppearance="@style/PriceHighlight"
+            style="@style/PriceHighlight"
+            app:layout_constraintStart_toEndOf="@id/prodPriceFrom"
+            app:layout_constraintTop_toBottomOf="@+id/prodDescription"
+            app:layout_constraintEnd_toStartOf="@+id/arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginRight="@dimen/higher_margin"
+            android:layout_marginEnd="@dimen/higher_margin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
