@@ -10,8 +10,6 @@ package br.com.amedigital.lodjinha.base.business.interactor
  * - dispatch: before entering `executeOn`,
  * - launch: `executeOn` launched and is running
  * - finish: `resultOn` launched and is running
- * Also, it implements the Template Method Pattern by providing a hook method for each step
- *
  */
 
 import kotlinx.coroutines.*
@@ -24,41 +22,54 @@ open class UseCaseInvoker<in P,R>(
 
     fun dispatch(param: P? = null, callback: (R)->Unit): Job? {
         useCase.callback = callback
-        onDispatch()
+        onBeforeDispatch()
         return GlobalScope.launch(executeOn) {
-            try {
-                onLaunch()
-                if (useCase.guard(param)) {
-                    val result = useCase.execute(param)
-                    onSuccess(result)
-                }
-            } catch(error: Throwable) {
-                onError(error)
-            }
+            onDispatch(param)
         }
     }
 
-    protected open fun onLaunch() {}
+    protected open fun onBeforeDispatch() {}
 
-    protected open fun onDispatch() {}
+    private suspend fun onDispatch(param: P? = null) {
+        try {
+            onBeforeExecute()
+            onExecute(param)
+        } catch(error: Throwable) {
+            onError(error)
+        }
+    }
 
-    protected open fun onFinish() {}
+    protected open fun onBeforeExecute() {}
+
+    private suspend fun onExecute(param: P? = null) {
+        if (useCase.guard(param)) {
+            onSuccess(useCase.execute(param))
+        }
+    }
 
     private suspend fun onSuccess(output: R) {
         withContext(resultOn) {
             try {
-                onFinish()
+                onBeforeSuccess()
                 useCase.onSuccess(output)
+                onFinish()
             } catch(error: Throwable) {
                 onError(error)
             }
         }
     }
 
+    protected open fun onBeforeSuccess() {}
+
     private suspend fun onError(error: Throwable) {
         withContext(resultOn) {
-            onFinish()
+            onBeforeError();
             useCase.onError(error)
+            onFinish()
         }
     }
+
+    protected open fun onBeforeError() {}
+
+    protected open fun onFinish() {}
 }

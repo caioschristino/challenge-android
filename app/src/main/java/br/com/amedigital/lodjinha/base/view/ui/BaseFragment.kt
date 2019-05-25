@@ -17,14 +17,14 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        doSetups(view)
+        setupViewModel()
+        setupViews(view)
+        observeViewModel()
     }
 
-    protected open fun setupViewModel(clazz: Class<V>) {
-        viewModel = ViewModelProviders.of(this)
-            .get(clazz)
-            .also { it.observe(this, Observer { v-> handleResponse(v) }) }
-    }
+    protected open fun setupViews(view: View) {}
+
+    protected abstract fun observeViewModel()
 
     protected fun setupToolbar(toolbar: Toolbar, homeAsUpEnabled: Boolean) {
         (activity as? BaseActivity)?.resetToolbar(toolbar, homeAsUpEnabled)
@@ -34,7 +34,20 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
         (activity as? BaseActivity)?.setupDrawer(toolbar)
     }
 
+    protected fun setupViewModel() {
+        val clazz = getViewModelClass()
+        viewModel = ViewModelProviders.of(this).get(clazz)
+    }
+
+    protected abstract fun getViewModelClass(): Class<V>
+
+    protected fun observeChannel(channelName: String) {
+        viewModel.observe(channelName,this, Observer { v-> handleResponse(v) })
+    }
+
     protected open fun handleResponse(state: ViewState) {
+        Log.w("BASE", "handleResponse called")
+
         if(!state.handled)  {
             state.handled = true
             if (state.isError()) {
@@ -42,15 +55,6 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
             } else {
                 handleSuccess(state.output.value)
             }
-        } else {
-            Log.w("BVIEW", "state discarded with output: ${state.output}")
-        }
-    }
-
-    protected fun reveal(view: View) {
-        if(view.visibility != View.VISIBLE) {
-            view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
-            view.visibility = View.VISIBLE
         }
     }
 
@@ -58,5 +62,10 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
 
     protected open fun handleSuccess(value: Any?) {}
 
-    protected open fun doSetups(view: View) {}
+    protected fun reveal(view: View) {
+        if(view.visibility != View.VISIBLE) {
+            view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
+            view.visibility = View.VISIBLE
+        }
+    }
 }

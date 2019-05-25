@@ -1,5 +1,7 @@
 package br.com.amedigital.lodjinha.base.business.interactor
 
+import kotlinx.coroutines.Job
+
 /**
  * @author Alessandro Balotta de Oliveira
  *
@@ -40,14 +42,11 @@ abstract class AbstractUseCase<in P, R>: Interactor<P, R> {
 
 
 abstract class UseCase<in P, R>: AbstractUseCase<P, Output<R>>() {
-
-    companion object {
-        fun <P,R,U: UseCase<P, R>> invoker(useCase: U): UseCaseInvoker<P, Output<R>> {
-            return UseCaseInvoker(useCase)
-        }
-    }
-
     override fun onError(error: Throwable) {
         callback(Output.failure(error))
+    }
+
+    fun invoke(param: P? = null, callback: (Output<R>)->Unit): Job? {
+        return UseCaseInvoker(this).dispatch(param, callback)
     }
 }

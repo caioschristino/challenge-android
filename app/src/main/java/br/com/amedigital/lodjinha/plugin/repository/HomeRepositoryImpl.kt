@@ -12,8 +12,8 @@ internal class HomeRepositoryImpl: BaseRepository(), HomeRepository {
         get() = cacheOrApi("banners") { getAPI().getBanners().execute().body()?.data}
 
     override val categories: List<Categoria>?
-        get() = cacheOrApi("categories") { getAPI().getCategories().execute().body()?.data}
+        get() = cacheOrApi("categories") { getAPI().getCategories().execute().body()?.data }
 
     override val salesRank: List<Produto>?
-        get() = cacheOrApi("rank") { getAPI().getProdSalesRank().execute().body()?.data}
+        get() = cacheOrApi("rank") { getAPI().getProdSalesRank().execute().body()?.data }
 }

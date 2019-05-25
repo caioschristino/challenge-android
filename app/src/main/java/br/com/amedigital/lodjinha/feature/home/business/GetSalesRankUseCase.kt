@@ -6,6 +6,6 @@ import br.com.amedigital.lodjinha.base.business.interactor.UseCase
 
 class GetSalesRankUseCase(private val repository: HomeRepository): UseCase<Nothing, Products>() {
     override fun execute(param: Nothing?): Output<Products> {
-        return Output.success(Products(repository.salesRank))
+        return Output.success(Products(repository.salesRank ?: emptyList()))
     }
 }

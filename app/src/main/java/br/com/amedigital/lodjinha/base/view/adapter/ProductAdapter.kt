@@ -1,12 +1,14 @@
 package br.com.amedigital.lodjinha.base.view.adapter
 
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.model.Produto
 import br.com.amedigital.lodjinha.util.currencyBRL
 import kotlinx.android.synthetic.main.item_product.view.*
 
-class ProductAdapter(items: List<Produto>?, listener: (Produto?)->Unit):
+class ProductAdapter(items: List<Produto> = emptyList(), listener: (Produto)->Unit):
     Adapter<Produto>(R.layout.item_product, items, listener) {
 
     override fun getViewHolder(view: View): ViewHolder<Produto> {
@@ -14,13 +16,13 @@ class ProductAdapter(items: List<Produto>?, listener: (Produto?)->Unit):
     }
 
     class ProductViewHolder(itemView: View): ViewHolder<Produto>(itemView) {
-        val prodImg = itemView.prodImg
-        val prodDescription = itemView.prodDescription
-        val prodPriceFrom = itemView.prodPriceFrom
-        val prodPriceTo = itemView.prodPriceTo
+        private val prodImg: ImageView = itemView.prodImg
+        private val prodDescription: TextView = itemView.prodDescription
+        private val prodPriceFrom: TextView = itemView.prodPriceFrom
+        private val prodPriceTo: TextView = itemView.prodPriceTo
 
-        override fun bind(item: Produto?, listener: (Produto?) -> Unit) {
-            item?.let {
+        override fun bind(item: Produto, listener: (Produto) -> Unit) {
+            item.let {
                 loadImage(it.urlImagem, prodImg)
 
                 prodDescription.text = it.descricao

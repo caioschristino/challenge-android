@@ -14,6 +14,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.io.Serializable
+import okhttp3.logging.HttpLoggingInterceptor
+
+
 
 internal interface API {
     @GET("banner")
@@ -28,18 +31,27 @@ internal interface API {
     @GET("produto")
     fun getProdByCategory(
         @Query("categoriaId") categoryId : Long,
-        @Query("limit") limit : Int,
-        @Query("offset") offset: Int
-        ): Call<Pageable<Produto>>
+        @Query("offset") offset: Int,
+        @Query("limit") limit : Int
+    ): Call<Pageable<Produto>>
 
     @GET("produto/{prodId}")
     fun getProdById(@Path("routeId") prodId: Long)
 }
 
 internal fun getAPI(): API {
+    val interceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    val client = OkHttpClient.Builder().let {
+        it.addInterceptor(interceptor)
+        it.build()
+    }
+
     return Retrofit.Builder()
         .baseUrl(BuildConfig.ENDPOINT)
-        .client(OkHttpClient())
+        .client(client)
         .addConverterFactory(GsonConverterFactory.create(Gson()))
         .build()
         .create(API::class.java)

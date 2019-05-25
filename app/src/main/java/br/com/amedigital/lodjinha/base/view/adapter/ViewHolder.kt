@@ -1,7 +1,5 @@
 package br.com.amedigital.lodjinha.base.view.adapter
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -9,17 +7,12 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import br.com.amedigital.lodjinha.R
-import br.com.amedigital.lodjinha.model.Categoria
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 
 open class ViewHolder<P>(itemView: View): RecyclerView.ViewHolder(itemView) {
-    open fun bind(item: P?, listener: (P?) -> Unit) = with(itemView) {
+    open fun bind(item: P, listener: (P) -> Unit) = with(itemView) {
         setOnClickListener { listener.invoke(item) }
     }
 
@@ -42,19 +35,4 @@ open class ViewHolder<P>(itemView: View): RecyclerView.ViewHolder(itemView) {
                     .centerCrop())
             .into(view)
 
-}
-
-class Listener: RequestListener<Drawable> {
-    override fun onLoadFailed(e: GlideException?, model: Any?,
-                              target: Target<Drawable>?, isFirstResource: Boolean
-    ): Boolean {
-        Log.e("CATEGORIA", "load failed", e)
-        return false
-    }
-
-    override fun onResourceReady(resource: Drawable?, model: Any?,
-                                 target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean
-    ): Boolean {
-        return false
-    }
 }

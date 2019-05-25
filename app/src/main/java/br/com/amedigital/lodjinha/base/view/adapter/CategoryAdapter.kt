@@ -1,12 +1,13 @@
 package br.com.amedigital.lodjinha.base.view.adapter
 
-import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.model.Categoria
 import kotlinx.android.synthetic.main.item_category.view.*
 
-class CategoryAdapter(items: List<Categoria>?, listener: (Categoria?)->Unit): Adapter<Categoria>(
+class CategoryAdapter(items: List<Categoria> = emptyList(), listener: (Categoria)->Unit): Adapter<Categoria>(
     R.layout.item_category, items, listener) {
 
     override fun getViewHolder(view: View): ViewHolder<Categoria> {
@@ -14,11 +15,11 @@ class CategoryAdapter(items: List<Categoria>?, listener: (Categoria?)->Unit): Ad
     }
 
     class CategoryViewHolder(itemView: View): ViewHolder<Categoria>(itemView) {
-        val categoryImg = itemView.categoryImg
-        val categoryName = itemView.categoryName
+        private val categoryImg: ImageView = itemView.categoryImg
+        private val categoryName: TextView = itemView.categoryName
 
-        override fun bind(item: Categoria?, listener: (Categoria?) -> Unit) {
-            item?.let {
+        override fun bind(item: Categoria, listener: (Categoria) -> Unit) {
+            item.let {
                 categoryName.text = it.descricao
                 animateText(categoryName)
                 loadImage(it.urlImagem, categoryImg)
