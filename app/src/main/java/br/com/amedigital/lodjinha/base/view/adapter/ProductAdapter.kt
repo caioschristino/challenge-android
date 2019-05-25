@@ -6,6 +6,7 @@ import android.widget.TextView
 import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.model.Produto
 import br.com.amedigital.lodjinha.util.currencyBRL
+import br.com.amedigital.lodjinha.util.parseHTML
 import kotlinx.android.synthetic.main.item_product.view.*
 
 class ProductAdapter(items: List<Produto> = emptyList(), listener: (Produto)->Unit):
@@ -25,7 +26,7 @@ class ProductAdapter(items: List<Produto> = emptyList(), listener: (Produto)->Un
             item.let {
                 loadImage(it.urlImagem, prodImg)
 
-                prodDescription.text = it.descricao
+                prodDescription.text = parseHTML(it.descricao)
                 animateText(prodDescription)
 
                 prodPriceFrom.text = getString(R.string.price_from, currencyBRL(it.precoDe))
