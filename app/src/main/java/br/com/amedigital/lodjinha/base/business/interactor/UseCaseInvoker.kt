@@ -4,12 +4,8 @@ package br.com.amedigital.lodjinha.base.business.interactor
  * @author Alessandro Balotta de Oliveira
  *
  * An UseCaseInvoker can run AbstractUseCase on coroutines
- * Interactor's methods are executed on the `executeOn` coroutine
- * AbstractUseCase's outputting methods are executed on the `resultOn` coroutine
- * It has three steps:
- * - dispatch: before entering `executeOn`,
- * - launch: `executeOn` launched and is running
- * - finish: `resultOn` launched and is running
+ * Interactor's methods are executed on the `executeOn` dispatcher
+ * AbstractUseCase's outputting methods are executed on the `resultOn` dispatcher
  */
 
 import kotlinx.coroutines.*

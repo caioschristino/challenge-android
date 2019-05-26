@@ -8,17 +8,19 @@ import kotlinx.coroutines.Job
  * This file has the main components of the Business Layer: AbstractUseCase and UseCase
  *
  * An Use Case is a guarded executable unit that receives a nullable param and
- * outputs a non-null result or Nothing to a callback lambda.
- * Use Cases may be executed on a separate Thread but they don't enforce it.
+ * outputs a non-null result or Unit/Nothing to a callback lambda.
+ * Use Cases may be executed on a separated Thread but they don't enforce it.
  * They automatically catch any exceptions and may wrap them in the output.
  *
- * AbstractUseCase: the Use Case all others inherit from. It implements the Template Method Pattern
- * UseCase: the Use Case that outputs either a nullable value or an error
- *
+ * Use Cases implement the Template Method Pattern
  */
 
 abstract class AbstractUseCase<in P, R>: Interactor<P, R> {
     lateinit var callback: (R)->Unit
+
+    fun fireAndForget(param: P? = null) {
+        process(param, {})
+    }
 
     fun process(param: P? = null, callback: (R)->Unit) {
         try {

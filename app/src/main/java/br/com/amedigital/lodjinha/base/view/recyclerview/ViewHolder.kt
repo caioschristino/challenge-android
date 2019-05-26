@@ -1,4 +1,4 @@
-package br.com.amedigital.lodjinha.base.view.adapter
+package br.com.amedigital.lodjinha.base.view.recyclerview
 
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -11,9 +11,10 @@ import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-open class ViewHolder<P>(itemView: View): RecyclerView.ViewHolder(itemView) {
+open class ViewHolder<P>(itemView: View, val bindingEnabled: Boolean = true): RecyclerView.ViewHolder(itemView) {
+
     open fun bind(item: P, listener: (P) -> Unit) = with(itemView) {
-        setOnClickListener { listener.invoke(item) }
+        if(bindingEnabled) setOnClickListener { listener.invoke(item) }
     }
 
     open fun animateText(txt: TextView) {
@@ -36,3 +37,5 @@ open class ViewHolder<P>(itemView: View): RecyclerView.ViewHolder(itemView) {
             .into(view)
 
 }
+
+class ProgressViewHolder<P>(itemView: View) : ViewHolder<P>(itemView, false)

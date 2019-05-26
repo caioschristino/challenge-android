@@ -26,6 +26,8 @@
                 app:popEnterAnim="@anim/slide_in"/>
     </fragment>
     <fragment android:id="@+id/categoryFragment"
-              android:name="br.com.amedigital.lodjinha.feature.category.view.CategoryFragment"
-              android:label="CategoryFragment"/>
+              android:name="br.com.amedigital.lodjinha.feature.product.view.CategoryFragment"
+              android:label="CategoryFragment">
+        <argument android:name="categoryId" app:argType="long"/>
+    </fragment>
 </navigation>

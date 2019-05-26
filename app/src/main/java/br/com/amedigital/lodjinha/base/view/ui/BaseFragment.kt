@@ -24,7 +24,17 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
 
     protected open fun setupViews(view: View) {}
 
-    protected abstract fun observeViewModel()
+    protected open fun observeViewModel() {
+        observeAllChannels()
+    }
+
+    protected fun observeAllChannels() {
+        viewModel.getChannels().forEach { observeChannel(it) }
+    }
+
+    protected fun observeChannel(channelName: String) {
+        viewModel.observe(channelName,this, Observer { v-> handleResponse(v) })
+    }
 
     protected fun setupToolbar(toolbar: Toolbar, homeAsUpEnabled: Boolean) {
         (activity as? BaseActivity)?.resetToolbar(toolbar, homeAsUpEnabled)
@@ -40,10 +50,6 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
     }
 
     protected abstract fun getViewModelClass(): Class<V>
-
-    protected fun observeChannel(channelName: String) {
-        viewModel.observe(channelName,this, Observer { v-> handleResponse(v) })
-    }
 
     protected open fun handleResponse(state: ViewState) {
         Log.w("BASE", "handleResponse called")

@@ -1,8 +1,6 @@
-package br.com.amedigital.lodjinha.feature.category.business
+package br.com.amedigital.lodjinha.feature.product.business
 
 import android.util.Log
-import androidx.core.graphics.component1
-import androidx.core.graphics.component2
 import br.com.amedigital.lodjinha.base.business.dto.Pageable
 import br.com.amedigital.lodjinha.base.business.dto.QueryParam
 import br.com.amedigital.lodjinha.base.business.interactor.Output
@@ -17,8 +15,6 @@ class GetProductsByCategoryUseCase(private val repository: CategoryRepository):
     }
 
     override fun execute(param: QueryParam?): Output<Pageable<Produto>> {
-        Log.w("PRODUTOS", "${javaClass.simpleName} called")
-
         val (categoryId, offset, limit) = param!!
         val products = repository.getProducts(categoryId, offset, limit)
         return Output.success(products)

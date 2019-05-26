@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.base.business.dto.Products
-import br.com.amedigital.lodjinha.base.view.adapter.CategoryAdapter
-import br.com.amedigital.lodjinha.base.view.adapter.ProductAdapter
+import br.com.amedigital.lodjinha.base.view.recyclerview.CategoryAdapter
+import br.com.amedigital.lodjinha.base.view.recyclerview.ProductAdapter
 import br.com.amedigital.lodjinha.base.view.ui.BaseFragment
 import br.com.amedigital.lodjinha.feature.home.business.Banners
 import br.com.amedigital.lodjinha.feature.home.business.Categories
@@ -63,10 +63,6 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
         }
     }
 
-    override fun observeViewModel() {
-        viewModel.availableChannels.forEach { observeChannel(it) }
-    }
-
     private fun requestAllData() {
         viewModel.run {
             getBanners()
@@ -113,7 +109,11 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
     }
 
     private fun onCategorySelectionListener(item: Categoria) {
-        val action = if(isLollipopOrHigher()) R.id.action_home_to_category else R.id.action_home_to_category_compat
+        val action = when {
+            isLollipopOrHigher() -> HomeFragmentDirections.actionHomeToCategory(item.id)
+            else -> HomeFragmentDirections.actionHomeToCategoryCompat(item.id)
+        }
+
         NavHostFragment.findNavController(this).navigate(action)
     }
 

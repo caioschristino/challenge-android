@@ -1,4 +1,4 @@
-package br.com.amedigital.lodjinha.feature.category.business
+package br.com.amedigital.lodjinha.feature.product.business
 
 import br.com.amedigital.lodjinha.base.business.dto.Pageable
 import br.com.amedigital.lodjinha.model.Produto

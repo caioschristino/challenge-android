@@ -41,7 +41,7 @@ internal interface API {
 
 internal fun getAPI(): API {
     val interceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+        level = HttpLoggingInterceptor.Level.BASIC
     }
 
     val client = OkHttpClient.Builder().let {

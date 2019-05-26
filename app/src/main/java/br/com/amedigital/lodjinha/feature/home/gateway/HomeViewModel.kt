@@ -2,7 +2,7 @@ package br.com.amedigital.lodjinha.feature.home.gateway
 
 import android.app.Application
 import br.com.amedigital.lodjinha.base.gateway.BaseViewModel
-import br.com.amedigital.lodjinha.plugin.di.injector
+import br.com.amedigital.lodjinha.feature.home.di.HomeInjector
 
 class HomeViewModel(application: Application): BaseViewModel(application) {
     companion object {
@@ -11,10 +11,13 @@ class HomeViewModel(application: Application): BaseViewModel(application) {
         const val RANK_CHANNEL = "rank"
     }
 
-    private val bannersUseCase by lazy { injector().bannersUseCase }
-    private val categoriesUseCase by lazy { injector().categoriesUseCase }
-    private val salesRankUseCase by lazy { injector().salesRankUseCase }
-    val availableChannels = listOf(BANNERS_CHANNEL, CATEGORIES_CHANNEL, RANK_CHANNEL)
+    private val bannersUseCase by lazy { HomeInjector.injector.bannersUseCase }
+    private val categoriesUseCase by lazy { HomeInjector.injector.categoriesUseCase }
+    private val salesRankUseCase by lazy { HomeInjector.injector.salesRankUseCase }
+
+    override fun declareChannels() {
+        availableChannels.addAll(listOf(BANNERS_CHANNEL, CATEGORIES_CHANNEL, RANK_CHANNEL))
+    }
 
     fun getBanners() {
         request(channelName = BANNERS_CHANNEL, useCase = bannersUseCase)
