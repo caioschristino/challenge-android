@@ -1,20 +1,26 @@
 ﻿# Arquitetura
 
+## Clean Architecture 
+
+
 A arquitetura dessa solução é uma versão MVVM da Clean Architecture, do Uncle Bob.
 De acordo com a Clean Architecture, a aplicação deve ser dividida em 5 camadas conceituais (pondendo haver subcamadas em cada uma delas), da mais inferior à mais exterior delas, nessa ordem: Entities, Interactors, Interface Adapters, Views e Plugins. 
 
-A camada de Entitities possui as entidades (modelos) do nogócio; a camada de Interactors possui Use Cases, componentes que orquestram as entidades de negócio para atingir um caso de uso específico; a camada de Interface Adapters possui objetos que fazem a ponte entre os Use Cases e o usuário. Nessa camada é implementada alguma arquitetura de GUI, tais como MVC, MVVM, etc. A camada de Views possui as telas e componentes com que o usuário interage diretamente; e, por fim mas não menos importante, na camada de Plugins residem todas as bibliotecas de terceiros. Essa camada possui uma subcamada chamada Main, a mais externa de todas, que é o ponto de partida da aplicação e na qual a injeção de dependencia ocorre.
+- A camada de Entitities possui as entidades (modelos) do nogócio; 
+- A de Interactors possui Use Cases, componentes que orquestram as entidades de negócio para atingir um caso de uso específico; 
+- A camada de Interface Adapters possui objetos que fazem a ponte entre os Use Cases e a camada de Views. Nessa camada é implementada alguma arquitetura de GUI, tais como MVC, MVVM, etc. 
+- Por sua vez, a camada de Views possui as telas e componentes com que o usuário interage diretamente; e, por fim mas não menos importante,
+- Na camada de Plugins residem as bibliotecas de terceiros e classes concretas que encapsulam essas bibliotecas e que implementam alguma interface das camadas internas (por exemplo, as interfaces do Repository Pattern, definidas na camada Interactors, são implementadas na camada Plugins. Então, as respectivas classes concretas encapsulam a Retrofit, biblioteca de terceiros usada para as requisições à API). 
 
-A Clean Architecture possui a Regra de Dependência que exige que classes de uma camada apenas dependam (importem) classes de camadas inferiores, nunca de camadas superiores. A dependência ocorre, portanto, apenas em uma única direção: da camada mais externa para a mais interna. Isso se opõe à direção do fluxo de dados quando eles partem da camada mais interna para a externa (no caso, por exemplo, de um resultado da camada Interactors sendo devolvido para a View). Para resolver isso, recorre-se à inversão de dependência: cada camada pode definir uma interface para a qual irá devolver os dados. Essa interface pode ser implementada pela camada mais externa e a respectiva classe concreta pode ser instanciada em tempo de execução substituindo a interface (via alguma estratégia de injeção de dependência). Alternativamente, pode-se usar o Observer Pattern. 
+Com a camada Plugins, o princípio de Liskov é respeitado e, portanto, permite-se a substituibilidade apenas "plugando" uma outra classe concreta que implemente a mesma interface. A camada Plugins possui uma subcamada chamada Main, a mais externa de todas, que é o ponto de partida da aplicação e na qual as injeções de dependencia ocorrem. Em geral, as camadas internas apenas conversam com suas próprias interfaces em tempo de escrita de código e compilação. Em tempo de execução, as devidas classes concretas são injetadas (plugadas).
 
-Nesse app, utiliza-se injeção de dependência entre as camadas Interactors/Interface Adapters e a Plugins, e Observer Pattern (com LiveData) entre a camada Interface Adapters e a Views.
-
-
-# Camadas do Clean Architecture no app
+Na Clean Architecture, há a Regra de Dependência que exige que classes de uma dada camada apenas dependam (importem) classes de camadas inferiores a ela, nunca de camadas superiores. A dependência ocorre, portanto, apenas em uma única direção: da camada mais externa para a mais interna. Isso se opõe à direção do fluxo de dados quando eles partem da camada mais interna para a externa (no caso, por exemplo, de um resultado da camada Interactors sendo devolvido para a View). Para resolver isso, recorre-se à inversão de dependência: cada camada pode definir uma interface para a qual irá devolver os dados. Essa interface pode ser implementada pela camada mais externa e a respectiva classe concreta pode ser instanciada em tempo de execução substituindo a interface (via alguma estratégia de injeção de dependência). Alternativamente, pode-se usar o Observer Pattern. 
 
 Nesse app, as camadas do Clean Architecture foram mapeadas para um ou mais pacotes. A camada Entites corresponde ao pacote Model, comum para todas as features. A camada Interactors corresponde ao pacote Business de cada feature. A camada Interface Adapters corresponde ao pacote Gateway de cada feature. A camada Views corresponde ao pacote View de cada feature. A camada Plugins, por sua vez, corresponde ao pacote Plugin, comum para todo app. 
 
-Portanto, cada feature possui seu próprio pacote, no qual estão os pacotes Business, Gateway e View específicos. Componentes das camadas Interactors, Interface Adapters e Views que são compartilhados por mais de uma feature ficam no pacote Base, o qual também possui os pacotes Business, Gateway e View específicos.
+Portanto, cada feature possui seu próprio pacote, no qual estão os pacotes Business, Gateway e View específicos. Componentes das camadas Interactors, Interface Adapters e Views que são compartilhados por mais de uma feature ficam no pacote Base, o qual também possui os pacotes Business, Gateway e View específicos. Dessa forma, a arquitetura permite diretamente uma segregação futura do app em vários módulos.
+
+Nesse app, utiliza-se injeção de dependência entre as camadas Interactors/Interface Adapters e a Plugins, e Observer Pattern (com LiveData) entre a camada Interface Adapters e a Views.
 
 
 ## A camada Entities
