@@ -1,3 +1,73 @@
+﻿# Arquitetura
+
+A arquitetura dessa solução é uma versão MVVM da Clean Architecture, do Uncle Bob.
+De acordo com a Clean Architecture, a aplicação deve ser dividida em 5 camadas conceituais (pondendo haver subcamadas em cada uma delas), da mais inferior à mais exterior delas, nessa ordem: Entities, Interactors, Interface Adapters, Views e Plugins. 
+
+A camada de Entitities possui as entidades (modelos) do nogócio; a camada de Interactors possui Use Cases, componentes que orquestram as entidades de negócio para atingir um caso de uso específico; a camada de Interface Adapters possui objetos que fazem a ponte entre os Use Cases e o usuário. Nessa camada é implementada alguma arquitetura de GUI, tais como MVC, MVVM, etc. A camada de Views possui as telas e componentes com que o usuário interage diretamente; e, por fim mas não menos importante, na camada de Plugins residem todas as bibliotecas de terceiros. Essa camada possui uma subcamada chamada Main, a mais externa de todas, que é o ponto de partida da aplicação e na qual a injeção de dependencia ocorre.
+
+A Clean Architecture possui a Regra de Dependência que exige que classes de uma camada apenas dependam (importem) classes de camadas inferiores, nunca de camadas superiores. A dependência ocorre, portanto, apenas em uma única direção: da camada mais externa para a mais interna. Isso se opõe à direção do fluxo de dados quando eles partem da camada mais interna para a externa (no caso, por exemplo, de um resultado da camada Interactors sendo devolvido para a View). Para resolver isso, recorre-se à inversão de dependência: cada camada pode definir uma interface para a qual irá devolver os dados. Essa interface pode ser implementada pela camada mais externa e a respectiva classe concreta pode ser instanciada em tempo de execução substituindo a interface (via alguma estratégia de injeção de dependência). Alternativamente, pode-se usar o Observer Pattern. 
+
+Nesse app, utiliza-se injeção de dependência entre as camadas Interactors/Interface Adapters e a Plugins, e Observer Pattern (com LiveData) entre a camada Interface Adapters e a Views.
+
+
+# Camadas do Clean Architecture no app
+
+Nesse app, as camadas do Clean Architecture foram mapeadas para um ou mais pacotes. A camada Entites corresponde ao pacote Model, comum para todas as features. A camada Interactors corresponde ao pacote Business de cada feature. A camada Interface Adapters corresponde ao pacote Gateway de cada feature. A camada Views corresponde ao pacote View de cada feature. A camada Plugins, por sua vez, corresponde ao pacote Plugin, comum para todo app. 
+
+Portanto, cada feature possui seu próprio pacote, no qual estão os pacotes Business, Gateway e View específicos. Componentes das camadas Interactors, Interface Adapters e Views que são compartilhados por mais de uma feature ficam no pacote Base, o qual também possui os pacotes Business, Gateway e View específicos.
+
+
+## A camada Entities
+
+Todos os modelos de negócio estão presente nessa camada, que essencialmente são data classes. Diferente de meros DTOs, essas classes representam uma entidade de negócio e podem possuir métodos que abstraem alguma regra de negócio sobre os dados encapsulados. As classes dessa camada somente podem depender de outras classes da mesma camada. Nenhuma dependência com classes do Android ou qualquer framework é permitida.
+
+
+## A camada Interactors
+
+Todas as interações são coordenadas por Use Cases. A classe UseCase realiza o pattern Template Method e define um fluxo com métodos que as subclasses podem sobrescrever. UseCases podem receber um objeto de input e um lambda de callback. Eles fazem automaticamente o tratamento de exceções e as devolvem para o método onError() que, por padrão, encapsula a exceção emum objeto Output que é recebido pela lambda de callback. Um objeto Output, portanto, encapsula tanto um resultado como uma exceção.
+Em geral, UseCases precisam de uma fonte de dados, seja local ou remota. Para isso, a camada Interactors de cada feature implementa o Repository Pattern ao definir uma interface que abstrai a fonte de dados. UseCases, em geral, recebem um objeto dessa interface em seus construtores. As classes concretas de cada uma dessas interfaces ficam na camada Plugin, na qual os UseCases também são instanciados.
+
+A classe UseCase permite que cada método do seu fluxo seja chamado em uma Thread/coroutine específica, mas não implementa isso. Toda a parte de multithreading foi definida em uma classe separada, chamada UseCaseInvoker, favorecendo, dessa forma, o desacoplamento e facilitando os testes dessa camada. A UseCaseInvoker recebe o UseCase a ser executado e até dois Dispatchers. Os métodos de entrada e processamento (UseCase.guard() e UseCase.execute()) são executados no Dispatcher recebido no parâmetro "executeOn", já os métodos de saída (UseCase.onError() e UseCase.onSuccess()) são executados no Dispatcher recebido no parâmetro "resultOn". Essa separação foi baseada na maneira como a solução seria implementada com os métodos "executeOn()" e "observeOn()" do RxJava.
+
+Nenhuma dependência com componentes de Android ou qualquer framrwork é permitida nessa camada. As classes dessa camada somente podem depender de outras classes da mesma camada ou (importar as) classes da camada inferior, a Entities.
+
+
+## A camada Interface Adapters
+
+Essa camada é responsável por invocar Use Cases de acordo com as ações do usuário. Essa camada possui essencialmente o(s) ViewModel(s) usado(s) pelos Fragments pertencentes à camada View.
+Os Use Cases são recebidos via injeção de dependência sobre a qual falarei mais adiante.
+
+Os ViewModels possuem um Map de LiveData(s). A comunicação com a camada mais externa é feita pelas instâncias de LiveData, nas quais o ViewModel publica ViewState(s) que, por sua vez, são observados pela camada de Views. Optou-se por um Map tanto para que as LiveData pudessem ser nomeadas, como para que houvesse mais de um canal de saída para a camada externa, pois sabe-se que LiveData pode perder dados em cenários de concorrência. Em geral, a estratégia realizada é um canal (LiveData) para cada UseCase.
+
+ViewStates encapsulam objetos que representam um resultado ou estado. Eles também possuem uma flag que permite aos observadores indicar que o respectivo ViewState já foi processado, evitando, dessa forma, reprocessamento caso o LiveData envie-o mais de uma vez.
+
+Essa camada possui dependência restrita aos componentes do Android (nomeadamente componentes de androidx.lifecycle.*). As classes dessa camada somente podem depender de outras classes da mesma camada ou (importar as) classes das camadas inferiores, a Entities e a Interactors.
+
+
+## A camada Views
+
+Essa camada possui os componentes de interface (Fragments, Activity, Navigation, Adapters, Animations e views customizadas). Esse app segue o padrão Single Activity e todas as telas são representadas por Fragments. A navegação entre as telas é feita pelo Navigation.
+
+Essa camada possui alta dependência com o framework Android. As classes dessa camada somente podem depender de outras classes da mesma camada ou (importar as) classes das camadas inferiores: Entities, Interactors e Interface Adapters. Em geral, apenas depende da Entities (modelos) e Interface Adapters (ViewModels), não interagindo diretamente com Interactors (UseCases).
+
+
+## A camada Plugins
+
+A camada Plugins define as classes concretas das interfaces do Repository Pattern de cada feature. Nessa camada, também está a biblioteca de terceiros usada por essas classes concretas para acessar a API remota. Os UseCases também são instanciados nessa camada e passados para a camada Interface Adapter (que os utiliza) via injeção de dependência.
+
+
+### Injeção de Dependência
+
+Existem várias maneiras de realizar injeção de dependência e alguns frameworks disponíveis para isso. Nessa aplicação, optei por não usar nenhum framework. Segundo Uncle Bob, todos os frameworks (para network, banco de dados, DI, etc) são detalhes e, como tal, a decisão sobre qual usar pode ser postergada. Contudo, para não deixar de lado os benefícios da DI, realizei uma injeção de dependência bem simples que se vale de algumas capacidades da linguagem Kotlin. 
+
+Cada feature possui um pacote especial chamado DI. Esse pacote possui uma interface que declara as dependências da feature para a camada Interface Adapter (em geral, as dependências são os UseCases usados pelos ViewModels). Essa interface também possui um Companion Object no qual uma implementação concreta dessa mesma interface é injetada com os respectivos objetos (das dependências declaradas) devidamente instanciados. 
+
+A injeção acontece propriamente na camada Plugins, mais especificamente na Main que, no nosso caso, corresponde à classe BaseApplication (o ponto de partida de todo app). Dessa forma, obedece-se a Regra da Dependência da Clean Architecture. 
+
+Não foi criada injeção de dependência para outras camadas além da Interface Adapter, mas, se fosse, o conceito poderia ser o mesmo, com um pacote DI específico para cada camada.
+
+-------------------------------
+
 # o Lodjinha
 
 Minimo SDK: API 15</br>

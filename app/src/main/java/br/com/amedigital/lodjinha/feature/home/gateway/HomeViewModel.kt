@@ -1,10 +1,9 @@
 package br.com.amedigital.lodjinha.feature.home.gateway
 
-import android.app.Application
 import br.com.amedigital.lodjinha.base.gateway.BaseViewModel
 import br.com.amedigital.lodjinha.feature.home.di.HomeInjector
 
-class HomeViewModel(application: Application): BaseViewModel(application) {
+class HomeViewModel: BaseViewModel() {
     companion object {
         const val BANNERS_CHANNEL = "banners"
         const val CATEGORIES_CHANNEL = "categories"

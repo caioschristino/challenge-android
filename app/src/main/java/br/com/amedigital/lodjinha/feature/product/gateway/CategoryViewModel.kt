@@ -1,6 +1,5 @@
 package br.com.amedigital.lodjinha.feature.product.gateway
 
-import android.app.Application
 import android.util.Log
 import br.com.amedigital.lodjinha.base.business.dto.Pageable
 import br.com.amedigital.lodjinha.base.business.dto.QueryParam
@@ -8,7 +7,7 @@ import br.com.amedigital.lodjinha.base.business.interactor.Output
 import br.com.amedigital.lodjinha.base.gateway.BaseViewModel
 import br.com.amedigital.lodjinha.feature.product.di.CategoryInjector
 
-class CategoryViewModel(application: Application): BaseViewModel(application) {
+class CategoryViewModel: BaseViewModel() {
     companion object {
         const val CATEGORIES_CHANNEL = "categories"
     }

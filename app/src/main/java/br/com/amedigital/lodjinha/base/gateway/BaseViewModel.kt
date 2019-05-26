@@ -18,11 +18,10 @@ package br.com.amedigital.lodjinha.base.gateway
  * The ViewState represents a event/state for the View Layer that can be flagged as handled.
  */
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import br.com.amedigital.lodjinha.base.business.interactor.CompositeJobDisposable
 import br.com.amedigital.lodjinha.base.business.interactor.Output
 import br.com.amedigital.lodjinha.base.business.interactor.UseCase
@@ -35,7 +34,7 @@ open class ViewState(val output: Output<*>, var handled: Boolean = false) {
     fun isSuccess(): Boolean = output.isSuccess()
 }
 
-abstract class BaseViewModel(application: Application): AndroidViewModel(application) {
+abstract class BaseViewModel: ViewModel() {
     private val channels: MutableMap<String, MutableLiveData<ViewState>> = mutableMapOf()
     protected val availableChannels = mutableListOf<String>()
     protected val compositeJobDisposable = CompositeJobDisposable()
