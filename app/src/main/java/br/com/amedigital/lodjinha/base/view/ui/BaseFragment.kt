@@ -1,18 +1,15 @@
 package br.com.amedigital.lodjinha.base.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.base.gateway.BaseViewModel
 import br.com.amedigital.lodjinha.base.gateway.ViewState
 
-abstract class BaseFragment<V:BaseViewModel>: Fragment() {
+abstract class BaseFragment<V:BaseViewModel>: AbstractFragment() {
     protected lateinit var viewModel: V
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -21,8 +18,6 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
         setupViews(view)
         observeViewModel()
     }
-
-    protected open fun setupViews(view: View) {}
 
     protected open fun observeViewModel() {
         observeAllChannels()
@@ -36,14 +31,6 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
         viewModel.observe(channelName,this, Observer { v-> handleResponse(v) })
     }
 
-    protected fun setupToolbar(toolbar: Toolbar, homeAsUpEnabled: Boolean) {
-        (activity as? BaseActivity)?.resetToolbar(toolbar, homeAsUpEnabled)
-    }
-
-    protected fun setupDrawer(toolbar: Toolbar) {
-        (activity as? BaseActivity)?.setupDrawer(toolbar)
-    }
-
     protected fun setupViewModel() {
         val clazz = getViewModelClass()
         viewModel = ViewModelProviders.of(this).get(clazz)
@@ -52,8 +39,6 @@ abstract class BaseFragment<V:BaseViewModel>: Fragment() {
     protected abstract fun getViewModelClass(): Class<V>
 
     protected open fun handleResponse(state: ViewState) {
-        Log.w("BASE", "handleResponse called")
-
         if(!state.handled)  {
             state.handled = true
             if (state.isError()) {

@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.model.Categoria
-import br.com.amedigital.lodjinha.util.parseHTML
+import br.com.amedigital.lodjinha.base.view.util.parseHTML
 import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryAdapter(items: List<Categoria> = emptyList(), listener: (Categoria)->Unit):

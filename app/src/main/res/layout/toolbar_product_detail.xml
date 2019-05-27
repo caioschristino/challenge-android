@@ -20,7 +20,7 @@
 
         <ImageView
                 android:id="@+id/prodImg"
-                android:layout_marginTop="@dimen/higher_margin"
+                android:layout_marginTop="48dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@null"

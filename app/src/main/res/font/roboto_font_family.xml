@@ -26,4 +26,12 @@
             app:font="@font/roboto_regular"
             app:fontStyle="normal"
             app:fontWeight="400" />
+
+    <font
+            android:fontStyle="normal"
+            android:fontWeight="300"
+            android:font="@font/roboto_light"
+            app:font="@font/roboto_light"
+            app:fontStyle="normal"
+            app:fontWeight="300" />
 </font-family>

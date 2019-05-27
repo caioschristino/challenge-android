@@ -3,10 +3,10 @@ package br.com.amedigital.lodjinha.feature.home.view
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,18 +22,18 @@ import br.com.amedigital.lodjinha.feature.home.gateway.HomeViewModel
 import br.com.amedigital.lodjinha.model.Banner
 import br.com.amedigital.lodjinha.model.Categoria
 import br.com.amedigital.lodjinha.model.Produto
-import br.com.amedigital.lodjinha.util.isLollipopOrHigher
+import br.com.amedigital.lodjinha.base.view.util.isLollipopOrHigher
 import com.bumptech.glide.request.RequestOptions
 import com.glide.slider.library.SliderLayout
 import com.glide.slider.library.SliderTypes.DefaultSliderView
 import kotlinx.android.synthetic.main.fragment_home.*
 
+
+
 class HomeFragment: BaseFragment<HomeViewModel>() {
     companion object {
         const val BANNER_DURATION = 4000L
     }
-
-    private lateinit var toolbar: Toolbar
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -42,6 +42,12 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestAllData()
+        setToolbarLogo()
+    }
+
+    private fun setToolbarLogo() {
+        val toolbar: Toolbar? = activity?.findViewById(R.id.toolbar)
+        toolbar?.logo = resources.getDrawable(R.drawable.logo_navbar)
     }
 
     override fun getViewModelClass(): Class<HomeViewModel> {
@@ -49,9 +55,7 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
     }
 
     override fun setupViews(view: View) {
-        toolbar = view.findViewById(R.id.toolbar)
-        setupToolbar(toolbar, false)
-        setupDrawer(toolbar)
+        setupDrawerAndToolbar(view, false)
         setupSlider()
     }
 
@@ -138,5 +142,10 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
     override fun onStop() {
         super.onStop()
         slider.stopAutoCycle()
+    }
+
+    override fun navigateToHome() {
+        Log.w("DRAWER", "navigate to home")
+        closeDrawer()
     }
 }

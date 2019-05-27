@@ -16,15 +16,37 @@
     </style>
 
     <style name="LogoMenuTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="fontFamily">@font/pacifico_font_family</item>
+        <item name="fontFamily">@font/pacifico_regular</item>
         <item name="android:textColor">@color/white_two</item>
         <item name="android:textSize">@dimen/header_text_size</item>
+    </style>
+
+    <style name="AboutTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/pacifico_regular</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+        <item name="android:textSize">64sp</item>
+    </style>
+
+    <style name="DeveloperTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="DateTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_light</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="CategoriaTextAppearance" parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/greyish_brown</item>
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="ToolBarTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="fontFamily">@font/pacifico_regular</item>
     </style>
 
     <style name="MenuTextAppearance" parent="TextAppearance.AppCompat">

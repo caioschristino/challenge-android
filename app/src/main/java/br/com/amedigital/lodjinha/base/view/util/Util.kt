@@ -1,4 +1,4 @@
-package br.com.amedigital.lodjinha.util
+package br.com.amedigital.lodjinha.base.view.util
 
 import android.os.Build
 import android.text.Html

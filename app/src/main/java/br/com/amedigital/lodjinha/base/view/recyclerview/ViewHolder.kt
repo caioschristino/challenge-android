@@ -7,10 +7,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import br.com.amedigital.lodjinha.R
-import br.com.amedigital.lodjinha.util.loadImageIntoView
-import com.bumptech.glide.GenericTransitionOptions
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import br.com.amedigital.lodjinha.base.view.util.loadImageIntoView
 
 open class ViewHolder<P>(itemView: View, val bindingEnabled: Boolean = true): RecyclerView.ViewHolder(itemView) {
 
