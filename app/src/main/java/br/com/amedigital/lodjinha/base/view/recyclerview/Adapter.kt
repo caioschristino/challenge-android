@@ -1,10 +1,7 @@
 package br.com.amedigital.lodjinha.base.view.recyclerview
 
-import android.content.Context
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import java.util.Collections.addAll
 
 abstract class Adapter<P>(items: List<P> = emptyList(), protected val listener: (P)->Unit): RecyclerView.Adapter<ViewHolder<P>>() {
     protected val list: MutableList<P?> = mutableListOf()

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.base.view.listener.AppBarStateChangeListener
 import br.com.amedigital.lodjinha.base.view.ui.BaseFragment
+import br.com.amedigital.lodjinha.base.view.ui.DialogConfig
 import br.com.amedigital.lodjinha.base.view.util.currencyBRL
 import br.com.amedigital.lodjinha.base.view.util.loadImageIntoView
 import br.com.amedigital.lodjinha.base.view.util.parseHTML
@@ -33,6 +34,8 @@ class ProductFragment: BaseFragment<ProductDetailsViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appBarLayout.addOnOffsetChangedListener(ToolbarListener())
+        getToolbar()?.title = ""
+        placeOrderBtn.setOnClickListener(::placeOrder)
         viewModel.getProduct(args.prodId)
     }
 
@@ -42,6 +45,7 @@ class ProductFragment: BaseFragment<ProductDetailsViewModel>() {
     }
 
     override fun setupViews(view: View) {
+        super.setupViews(view)
         toolbar = view.findViewById(R.id.toolbar)
         toolbar.navigationContentDescription = "up"
         setupToolbar(toolbar, true)
@@ -62,12 +66,16 @@ class ProductFragment: BaseFragment<ProductDetailsViewModel>() {
         prodPriceFrom.text = currencyBRL(prod.precoDe)
         prodPriceTo.text = currencyBRL(prod.precoPor)
         prodHeader.text = parseHTML(prod.nome)
-        toolbar.title = prod.categoria.descricao
+        getToolbar()?.title = prod.categoria.descricao
 
         reveal(prodName)
         reveal(priceContainer)
         reveal(prodHeader)
         reveal(prodDescription)
+    }
+
+    fun placeOrder(view: View) {
+        getDialog(DialogConfig(getString(R.string.functionality_unavailable)))?.show()
     }
 
     inner class ToolbarListener: AppBarStateChangeListener() {

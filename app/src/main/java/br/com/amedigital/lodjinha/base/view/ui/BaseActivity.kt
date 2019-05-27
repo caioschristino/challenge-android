@@ -43,4 +43,8 @@ abstract class BaseActivity: AppCompatActivity() {
     fun getNavHostFragment(): Fragment? {
         return supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
     }
+
+    fun getToolbar(): ActionBar? {
+        return supportActionBar
+    }
 }

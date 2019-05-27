@@ -14,6 +14,7 @@ buildscript {
     ext.lifecycle = '2.0.0'
     ext.material_design = '1.0.0'
     ext.mockito = '2.19.0'
+    ext.mockwebserver = '3.14.2'
     ext.navigation = '2.0.0'
     ext.okhttp = "3.12.1"
     ext.okhttpInterceptor = "3.12.1"

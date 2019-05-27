@@ -12,6 +12,7 @@
         tools:context=".feature.home.view.HomeActivity">
 
     <include layout="@layout/toolbar"/>
+    <include layout="@layout/loading"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryProducts"

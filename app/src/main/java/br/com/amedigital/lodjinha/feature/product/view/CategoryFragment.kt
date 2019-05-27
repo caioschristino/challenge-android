@@ -32,6 +32,7 @@ class CategoryFragment: BaseFragment<CategoryViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getToolbar()?.title = args.categoryName
         viewModel.getProducts(args.categoryId)
     }
 
@@ -70,6 +71,7 @@ class CategoryFragment: BaseFragment<CategoryViewModel>() {
     }
 
     override fun setupViews(view: View) {
+        super.setupViews(view)
         setupToolbar(view.findViewById(R.id.toolbar), true)
         setupProductList()
     }

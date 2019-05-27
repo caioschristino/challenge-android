@@ -23,6 +23,10 @@ abstract class AbstractFragment: Fragment() {
         (activity as? BaseActivity)?.closeDrawer()
     }
 
+    protected fun getToolbar(): ActionBar? {
+        return (activity as? BaseActivity)?.getToolbar()
+    }
+
     protected fun getNavHostFragment(): Fragment? {
         return (activity as? BaseActivity)?.getNavHostFragment()
     }

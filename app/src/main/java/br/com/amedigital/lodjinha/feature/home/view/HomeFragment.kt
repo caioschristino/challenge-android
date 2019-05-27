@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,18 +15,17 @@ import br.com.amedigital.lodjinha.base.business.dto.Products
 import br.com.amedigital.lodjinha.base.view.recyclerview.CategoryAdapter
 import br.com.amedigital.lodjinha.base.view.recyclerview.ProductAdapter
 import br.com.amedigital.lodjinha.base.view.ui.BaseFragment
+import br.com.amedigital.lodjinha.base.view.util.isLollipopOrHigher
 import br.com.amedigital.lodjinha.feature.home.business.Banners
 import br.com.amedigital.lodjinha.feature.home.business.Categories
 import br.com.amedigital.lodjinha.feature.home.gateway.HomeViewModel
 import br.com.amedigital.lodjinha.model.Banner
 import br.com.amedigital.lodjinha.model.Categoria
 import br.com.amedigital.lodjinha.model.Produto
-import br.com.amedigital.lodjinha.base.view.util.isLollipopOrHigher
 import com.bumptech.glide.request.RequestOptions
 import com.glide.slider.library.SliderLayout
 import com.glide.slider.library.SliderTypes.DefaultSliderView
 import kotlinx.android.synthetic.main.fragment_home.*
-
 
 
 class HomeFragment: BaseFragment<HomeViewModel>() {
@@ -46,8 +44,7 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
     }
 
     private fun setToolbarLogo() {
-        val toolbar: Toolbar? = activity?.findViewById(R.id.toolbar)
-        toolbar?.logo = resources.getDrawable(R.drawable.logo_navbar)
+        getToolbar()?.setIcon(R.drawable.logo_navbar)
     }
 
     override fun getViewModelClass(): Class<HomeViewModel> {
@@ -55,6 +52,7 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
     }
 
     override fun setupViews(view: View) {
+        super.setupViews(view)
         setupDrawerAndToolbar(view, false)
         setupSlider()
     }
@@ -74,6 +72,10 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
             getCategories()
             getSalesRank()
         }
+    }
+
+    override fun handleError(error: Throwable?) {
+        Log.e("HOME", "error", error)
     }
 
     override fun handleSuccess(value: Any?) {
@@ -115,8 +117,8 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
 
     private fun onCategorySelectionListener(item: Categoria) {
         val action = when {
-            isLollipopOrHigher() -> HomeFragmentDirections.actionHomeToCategory(item.id)
-            else -> HomeFragmentDirections.actionHomeToCategoryCompat(item.id)
+            isLollipopOrHigher() -> HomeFragmentDirections.actionHomeToCategory(item.id, item.descricao)
+            else -> HomeFragmentDirections.actionHomeToCategoryCompat(item.id, item.descricao)
         }
 
         NavHostFragment.findNavController(this).navigate(action)
@@ -145,7 +147,6 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
     }
 
     override fun navigateToHome() {
-        Log.w("DRAWER", "navigate to home")
         closeDrawer()
     }
 }

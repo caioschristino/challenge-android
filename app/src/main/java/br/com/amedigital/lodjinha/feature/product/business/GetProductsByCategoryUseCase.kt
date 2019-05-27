@@ -1,6 +1,5 @@
 package br.com.amedigital.lodjinha.feature.product.business
 
-import android.util.Log
 import br.com.amedigital.lodjinha.base.business.dto.Pageable
 import br.com.amedigital.lodjinha.base.business.dto.QueryParam
 import br.com.amedigital.lodjinha.base.business.interactor.Output

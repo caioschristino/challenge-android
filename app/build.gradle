@@ -40,6 +40,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:$mockito"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1'
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     androidTestImplementation 'androidx.test:runner:1.1.1'
 

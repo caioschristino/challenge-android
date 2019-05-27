@@ -8,11 +8,17 @@
         <item name="colorAccent">@color/warm_purple_light</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="fontFamily">@font/pacifico_regular</item>
+    </style>
 
     <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">
         <item name="android:textColor">@android:color/transparent</item>
         <item name="android:textSize">0.1sp</item>
+    </style>
+
+    <style name="CollapsingToolbarLayoutCollapsedTextStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="fontFamily">@font/pacifico_regular</item>
     </style>
 
     <style name="LogoMenuTextAppearance" parent="TextAppearance.AppCompat">
@@ -25,6 +31,12 @@
         <item name="fontFamily">@font/pacifico_regular</item>
         <item name="android:textColor">@color/greyish_brown</item>
         <item name="android:textSize">64sp</item>
+    </style>
+
+    <style name="ConnectivityTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="DeveloperTextAppearance" parent="TextAppearance.AppCompat">

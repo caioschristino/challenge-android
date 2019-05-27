@@ -1,6 +1,5 @@
 package br.com.amedigital.lodjinha.feature.product.gateway
 
-import android.util.Log
 import br.com.amedigital.lodjinha.base.business.dto.Pageable
 import br.com.amedigital.lodjinha.base.business.dto.QueryParam
 import br.com.amedigital.lodjinha.base.business.interactor.Output
@@ -23,7 +22,6 @@ class CategoryViewModel: BaseViewModel() {
 
     fun getProducts(categoryId: Long) {
         if(!executing) {
-            Log.w("PRODUCTS", "firstPage called for categoryId:$categoryId")
             currentQuery = QueryParam(categoryId)
             request()
         }
@@ -31,7 +29,6 @@ class CategoryViewModel: BaseViewModel() {
 
     fun getMoreProducts() {
         if(!executing) {
-            Log.w("PRODUCTS", "nextPage called")
             val (_, total, offset) = lastPage
             val nextOffset = offset + currentQuery.limit
             if(nextOffset < total) {

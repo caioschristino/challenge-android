@@ -6,9 +6,11 @@
         android:id="@+id/prodContainer"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".feature.product.view.ProductFragment">
 
     <include layout="@layout/toolbar_product_detail"/>
+    <include layout="@layout/loading"/>
 
     <androidx.core.widget.NestedScrollView
             android:layout_marginBottom="@dimen/default_margin"
@@ -101,6 +103,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/placeOrderBtn"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/img_icon_height"
             android:layout_gravity="end|bottom"

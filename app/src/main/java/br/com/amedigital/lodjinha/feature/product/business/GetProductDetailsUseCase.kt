@@ -1,6 +1,5 @@
 package br.com.amedigital.lodjinha.feature.product.business
 
-import android.util.Log
 import br.com.amedigital.lodjinha.base.business.interactor.Output
 import br.com.amedigital.lodjinha.base.business.interactor.UseCase
 import br.com.amedigital.lodjinha.model.Produto
@@ -12,8 +11,6 @@ class GetProductDetailsUseCase(private val repository: ProductDetailsRepository)
     }
 
     override fun execute(param: Long?): Output<Produto> {
-        Log.w("DETAILS", "execute called")
-
         return Output.success(repository.getProduct(param!!))
     }
 }
