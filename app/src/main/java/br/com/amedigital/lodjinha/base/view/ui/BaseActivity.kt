@@ -24,4 +24,9 @@ abstract class BaseActivity: AppCompatActivity() {
         drawer.addDrawerListener(actionToggle)
         actionToggle.syncState()
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

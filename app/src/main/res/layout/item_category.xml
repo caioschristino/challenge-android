@@ -22,8 +22,8 @@
     <TextView
             android:id="@+id/categoryName"
             android:gravity="center"
-            android:textAppearance="@style/CategoryTextAppearance"
-            style="@style/CategoryTextAppearance"
+            android:textAppearance="@style/CategoriaTextAppearance"
+            style="@style/CategoriaTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/categoryImg"

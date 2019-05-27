@@ -39,8 +39,8 @@
             android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginRight="@dimen/default_margin"
-            android:textAppearance="@style/HeaderTextAppearance"
-            style="@style/HeaderTextAppearance"
+            android:textAppearance="@style/LogoMenuTextAppearance"
+            style="@style/LogoMenuTextAppearance"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,17 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.base.business.dto.Pageable
 import br.com.amedigital.lodjinha.base.view.recyclerview.InfiniteScrollListener
 import br.com.amedigital.lodjinha.base.view.recyclerview.ProductAdapter
 import br.com.amedigital.lodjinha.base.view.ui.BaseFragment
+import br.com.amedigital.lodjinha.feature.home.view.HomeFragmentDirections
 import br.com.amedigital.lodjinha.feature.product.gateway.CategoryViewModel
 import br.com.amedigital.lodjinha.model.Produto
 import kotlinx.android.synthetic.main.fragment_category.*
-
+import kotlinx.android.synthetic.main.toolbar.*
 
 class CategoryFragment: BaseFragment<CategoryViewModel>() {
     private val scrollListener = InfiniteScrollListener(::getNextProducts)
@@ -24,7 +27,7 @@ class CategoryFragment: BaseFragment<CategoryViewModel>() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(br.com.amedigital.lodjinha.R.layout.fragment_category, container, false)
+        return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,9 +56,7 @@ class CategoryFragment: BaseFragment<CategoryViewModel>() {
             adapter.noMoreItems()
         } else {
             pageable.data.forEach {
-                val prod = it as Produto
-                Log.w("PRODUCTS", "prod id: #${it.id}")
-                adapter.add(prod)
+                adapter.add(it as Produto)
             }
         }
     }
@@ -69,7 +70,7 @@ class CategoryFragment: BaseFragment<CategoryViewModel>() {
     }
 
     override fun setupViews(view: View) {
-        setupToolbar(view.findViewById(br.com.amedigital.lodjinha.R.id.toolbar), false)
+        setupToolbar(view.findViewById(R.id.toolbar), true)
         setupProductList()
     }
 
@@ -81,5 +82,8 @@ class CategoryFragment: BaseFragment<CategoryViewModel>() {
         }
     }
 
-    private fun onProductSelectionListener(produto: Produto) {}
+    private fun onProductSelectionListener(item: Produto) {
+        val action = CategoryFragmentDirections.actionCategoryToProductDetail(item.id)
+        NavHostFragment.findNavController(this).navigate(action)
+    }
 }

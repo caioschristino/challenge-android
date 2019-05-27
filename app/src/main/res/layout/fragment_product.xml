@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/prodContainer"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_product_detail"/>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:visibility="gone"
+                    android:id="@+id/prodName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/DescriptionBoldAppearance"
+                    android:layout_margin="@dimen/higher_margin"
+                    android:layout_marginTop="@dimen/higher_margin"
+                    android:layout_marginBottom="@dimen/higher_margin"
+                    style="@style/DescriptionBoldAppearance"
+                    tools:text="Nome do produto com uma descricao grandona"
+            />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/priceContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:background="@drawable/session_divider">
+
+                <br.com.amedigital.lodjinha.base.view.custom.StrikeThruTextView
+                        android:id="@+id/prodPriceFrom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/higher_margin"
+                        android:textAppearance="@style/PriceOld"
+                        style="@style/PriceOld"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@id/prodPriceTo"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="De R$ 9999,00" />
+
+                <TextView
+                        android:id="@+id/prodPriceTo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/higher_margin"
+                        android:textAppearance="@style/PriceHighlight"
+                        style="@style/PriceHighlight"
+                        app:layout_constraintStart_toEndOf="@id/prodPriceFrom"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="Por R$ 9999,00"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                    android:visibility="gone"
+                    android:id="@+id/prodHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/DescriptionMediumAppearance"
+                    android:layout_marginLeft="@dimen/higher_margin"
+                    android:layout_marginRight="@dimen/higher_margin"
+                    android:layout_marginTop="@dimen/higher_margin"
+                    style="@style/DescriptionMediumAppearance"
+                    tools:text="Lorem Ipsum"/>
+
+            <TextView
+                    android:visibility="gone"
+                    android:id="@+id/prodDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/DescriptionAppearance"
+                    android:layout_marginLeft="@dimen/higher_margin"
+                    android:layout_marginRight="@dimen/higher_margin"
+                    android:layout_marginTop="@dimen/higher_margin"
+                    android:layout_marginBottom="@dimen/img_icon_height"
+                    style="@style/DescriptionAppearance"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit. Adipiscing elit pellentesque habitant morbi tristique. Massa sapien faucibus et molestie ac feugiat sed. Lobortis mattis aliquam faucibus purus in massa. Malesuada fames ac turpis egestas. Tortor posuere ac ut consequat semper viverra nam libero justo. A iaculis at erat pellentesque adipiscing commodo elit at. Donec ac odio tempor orci dapibus ultrices in iaculis nunc. Nibh cras pulvinar mattis nunc sed blandit libero volutpat sed. Id ornare arcu odio ut sem nulla pharetra. Enim sed faucibus turpis in eu. Diam phasellus vestibulum lorem sed. Semper risus in hendrerit gravida rutrum quisque non tellus. Vitae purus faucibus ornare suspendisse sed nisi. Accumsan tortor posuere ac ut consequat semper viverra nam. Sapien et ligula ullamcorper malesuada proin. Id nibh tortor id aliquet lectus proin nibh. At elementum eu facilisis sed odio morbi. Elit eget gravida cum sociis. Faucibus in ornare quam viverra orci sagittis eu. Id interdum velit laoreet id donec ultrices tincidunt. Amet tellus cras adipiscing enim eu turpis. Viverra accumsan in nisl nisi scelerisque. Massa placerat duis ultricies lacus sed turpis tincidunt id aliquet.">
+
+            </TextView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/img_icon_height"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/higher_margin"
+            android:src="@drawable/check_button"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

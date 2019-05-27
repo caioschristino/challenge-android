@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -127,7 +128,12 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
         reveal(titleRank)
     }
 
-    private fun onProductSelectionListener(item: Produto?) {}
+    private fun onProductSelectionListener(item: Produto?) {
+        if(item != null) {
+            val action = HomeFragmentDirections.actionHomeToProductDetail(item.id)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+    }
 
     override fun onStop() {
         super.onStop()

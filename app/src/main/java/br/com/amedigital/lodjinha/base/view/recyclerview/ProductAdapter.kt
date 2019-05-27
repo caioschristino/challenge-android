@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import br.com.amedigital.lodjinha.R
 import br.com.amedigital.lodjinha.model.Produto
 import br.com.amedigital.lodjinha.util.currencyBRL
+import br.com.amedigital.lodjinha.util.isLollipopOrHigher
 import br.com.amedigital.lodjinha.util.parseHTML
 import kotlinx.android.synthetic.main.item_product.view.*
 

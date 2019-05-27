@@ -10,13 +10,18 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="HeaderTextAppearance" parent="TextAppearance.AppCompat">
+    <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textSize">0.1sp</item>
+    </style>
+
+    <style name="LogoMenuTextAppearance" parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/pacifico_font_family</item>
         <item name="android:textColor">@color/white_two</item>
         <item name="android:textSize">@dimen/header_text_size</item>
     </style>
 
-    <style name="CategoryTextAppearance" parent="TextAppearance.AppCompat">
+    <style name="CategoriaTextAppearance" parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/greyish_brown</item>
         <item name="android:textSize">13sp</item>
@@ -27,13 +32,23 @@
         <item name="android:textSize">@dimen/menu_text_size</item>
     </style>
 
-    <style name="DescriptionAppearance" parent="TextAppearance.AppCompat">
+    <style name="DescriptionMediumAppearance" parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/greyish_brown</item>
     </style>
 
-    <style name="SubHeaderAppearance" parent="DescriptionAppearance">
+    <style name="DescriptionAppearance" parent="DescriptionMediumAppearance">
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="DescriptionBoldAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+    </style>
+
+    <style name="SubHeaderAppearance" parent="DescriptionMediumAppearance">
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/greyish_brown</item>

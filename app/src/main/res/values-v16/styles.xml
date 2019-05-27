@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="HeaderTextAppearance" parent="TextAppearance.AppCompat">
+    <style name="LogoMenuTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/pacifico_font_family</item>
         <item name="android:textColor">@color/white_two</item>
         <item name="android:textSize">@dimen/header_text_size</item>

@@ -36,7 +36,7 @@ internal interface API {
     ): Call<Pageable<Produto>>
 
     @GET("produto/{prodId}")
-    fun getProdById(@Path("routeId") prodId: Long)
+    fun getProdById(@Path("prodId") prodId: Long): Call<Produto>
 }
 
 internal fun getAPI(): API {

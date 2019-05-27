@@ -24,10 +24,21 @@
                 app:exitAnim="@anim/slide_out_fade"
                 app:popExitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in"/>
+        <action android:id="@+id/action_home_to_productDetail" app:destination="@id/productFragment"
+                app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_fade"
+                app:popEnterAnim="@anim/slide_in" app:popExitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment android:id="@+id/categoryFragment"
               android:name="br.com.amedigital.lodjinha.feature.product.view.CategoryFragment"
               android:label="CategoryFragment">
         <argument android:name="categoryId" app:argType="long"/>
+        <action android:id="@+id/action_category_to_productDetail" app:destination="@id/productFragment"
+                app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_fade"
+                app:popEnterAnim="@anim/slide_in" app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment android:id="@+id/productFragment"
+              android:name="br.com.amedigital.lodjinha.feature.product.view.ProductFragment"
+              android:label="ProductFragment">
+        <argument android:name="prodId" app:argType="long"/>
     </fragment>
 </navigation>
